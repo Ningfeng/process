@@ -1,0 +1,6 @@
+dm_mode=\\$8
+dm_size=\\$9
+dm_time=\\$2
+dm_stime=\\$1
+dm_flag=","
+test_mode=\"true\"
