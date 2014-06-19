@@ -97,15 +97,20 @@ if [  -z $format_file ];then
   echo "Use default format!"
 else
   #read log format info
-  cat $format_file | while read line
+  while read line
   do
     if expr "$line" : '^#'>/dev/null;then
       continue
     fi
     eval $(echo $line)
     echo $line
-  done
+  done<$format_file 
 fi
+echo $dm_mode
+echo $dm_size
+echo $dm_time
+echo $dm_stime
+echo $dm_flag
 
 #目录文件归一化
 #对目录进行聚合绘图与单独绘图输出
@@ -145,6 +150,7 @@ process_exit() {
   do
     echo "remove file: $dt-$mode-ts-$olog_append_name.log"
     rm -rf $dt-$mode-ts-$olog_append_name.log
+    rm -rf $plot_data_file
   done
 
   if [ $exit_code -eq 0 ]; then
@@ -513,7 +519,7 @@ do
   get_plot_cmd "$plot_sg_file"
   dbg_echo "$plot_cmd"
   #绘图命令入绘图脚本
-  echo $plot_cmd >> $gnuplot_script
+  echo $plot_cmd | sed 's/,$//g'>>$gnuplot_script
   gnuplot -p $gnuplot_script > $file.png
 
   echo "![]($curdir/$file.png)" >> $mrd_file
@@ -523,6 +529,7 @@ do
   #直方图
   file_no=$(($file_no+1))
 done
+process_exit 0
 exit 0
 
 #log文件独立直方图
