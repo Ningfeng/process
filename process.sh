@@ -5,7 +5,7 @@
 # @version 0.0.2
 # @date 2014-06-18
 #
-#!/bin/sh
+#!/usr/bin/env bash
 
 #script debug on
 sh_dbg=1
