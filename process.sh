@@ -381,7 +381,7 @@ set_plot_env(){
   echo "plot_ylen:$4 - $5 = $plot_ylen, ynum:$plot_ynum, ytics:$plot_ytics"
 
   plot_yrange_l=$5
-  plot_yrange_r=$plot_ylen
+  plot_yrange_r=$4
 
   #根据log文件名生成图片title
   plot_title=`basename $1`
